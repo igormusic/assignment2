@@ -57,6 +57,17 @@ def is_valid_answer(guess: str, winning_number: int) -> bool:
             return False
 
 
+def get_valid_guess(maximum, minimum):
+    while True:
+        guess_input = get_guess(minimum, maximum)
+        validated_guess = check_guess(guess_input, maximum, minimum)
+        if validated_guess != 'invalid':
+            break
+        else:
+            print("Invalid input. Please try again.\n")
+    return validated_guess
+
+
 def main():
     print("Welcome to the guessing game!\n"
           "You will enter a minimum and maximum value and I will think of a number in that range.\n"
@@ -77,44 +88,12 @@ def main():
     winning_number = generate_random_number(minimum, maximum)
 
     while True:
-        while True:
-            guess_input = get_guess(minimum, maximum)
-            validated_guess = check_guess(guess_input, maximum, minimum)
-            if validated_guess != 'invalid':
-                break
-            else:
-                print("Invalid input. Please try again.\n")
+        validated_guess = get_valid_guess(maximum, minimum)
 
         game_over = is_valid_answer(validated_guess, winning_number)
 
         if game_over:
             break
-
-    """1. Prompt user for min and max value
-    - ask for min input
-    - ask for max input
-    2. Ensure max > min > 0
-    - if true generate number
-    - if false let know and re-prompt
-
-    3. Generate random number in range
-
-    4. def getGuess to get input from user
-    5. Check if input .isnumeric() and is in range(min,max)
-        Else
-        - print("Invalid input") and getGuess() again
-
-    6.
-    -  while guess != winning_number:   allow user to guess until correct value
-        - if guess > winning_number:    tell user if higher or lower
-            - print("Too low")
-            - guess = getGuess()
-        - elif guess < winning_number:
-            - print("Too high")
-            - guess = getGuess()
-    6. Win: If guess == winning_number:
-        print("win statement and winning_number")
-    7. giveUp()- If use types "quit" at any point program should print winning"""  # and terminate
 
 
 main()
